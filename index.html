@@ -3,241 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon</title>
+  <title>Your Site</title>
   <style>
-    /* Basic Reset */
+    /* Reset and full viewport styling */
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
     }
-    /* Container for the 3D model (background) */
+    /* Container for the Spline background */
     .spline-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
       z-index: 0;
     }
-    /* Content overlaying the 3D model */
-    .content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      color: #fff;  /* white text to contrast with the dark background */
-      padding: 20px;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.25rem;
-      margin-bottom: 20px;
-    }
-    /* Button Styling */
-    #openModalButton {
+    /* Sign Up button styling positioned at the bottom center */
+    .update-button {
+      position: fixed;
+      bottom: 30px;  /* adjust as needed */
+      left: 50%;
+      transform: translateX(-50%);
       padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #333;
-      color: #fff;
+      background-color: #ffffff;
+      color: #000;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      z-index: 1;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Adds glow effect */
     }
-    /* Modal Overlay */
+    /* Modal Styling */
     .modal {
-      display: none; /* hidden by default */
+      display: none; /* Hidden by default */
       position: fixed;
-      z-index: 1000; /* on top of everything */
+      z-index: 1000;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    /* Modal Content */
     .modal-content {
-      background-color: rgba(20,20,20,0.95);
-      margin: 5% auto;
+      background: rgba(20, 20, 20, 0.95);
       padding: 20px;
-      border: 1px solid #444;
+      border-radius: 10px;
+      color: white;
       width: 90%;
-      max-width: 600px;
-      border-radius: 8px;
-      color: #fff;
+      max-width: 400px;
+      text-align: center;
       position: relative;
     }
-    /* Close Button */
     .close {
-      color: #aaa;
       position: absolute;
       top: 10px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
+      right: 15px;
+      font-size: 24px;
       cursor: pointer;
+      color: white;
     }
-    .close:hover,
-    .close:focus {
-      color: #fff;
-      text-decoration: none;
-    }
-    /* Mailchimp Form Overrides to Fit the Dark Theme */
+    /* Mailchimp Form Styling */
     #mc_embed_signup {
-      background: #141414 !important;
-      clear: left;
-      font: 14px Helvetica, Arial, sans-serif;
-      width: 100%;
-      color: #fff;
-      padding: 20px;
-      border-radius: 4px;
+      background: none !important;
+      color: white;
     }
-    #mc_embed_signup h2 {
-      color: #fff;
-      text-align: center;
-    }
-    #mc_embed_signup label {
-      color: #fff;
-    }
-    #mc_embed_signup input[type="email"],
-    #mc_embed_signup input[type="text"] {
+    #mc_embed_signup input {
       background: #333;
-      color: #fff;
-      border: none;
+      color: white;
       padding: 10px;
-      border-radius: 4px;
       width: 100%;
-      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-top: 10px;
     }
-    #mc_embed_signup .button,
-    #mc_embed_signup input[type="submit"] {
-      background-color: #333;
-      border: none;
-      color: #fff;
+    #mc_embed_signup .button {
+      background-color: white;
+      color: black;
       padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
+      border-radius: 5px;
       width: 100%;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <!-- Spline 3D model container (background) -->
+  <!-- Spline 3D Background -->
   <div class="spline-container">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.63/build/spline-viewer.js"></script>
-    <spline-viewer 
-      url="https://prod.spline.design/p7nq2m0MmiXARwLY/scene.splinecode"
-      allow-controls
-    ></spline-viewer>
+    <spline-viewer hint url="https://prod.spline.design/p7nq2m0MmiXARwLY/scene.splinecode"></spline-viewer>
   </div>
 
-  <!-- Main Content Overlay -->
-  <div class="content">
-    <h1>Coming Soon</h1>
-    <p>Our website is under construction. Stay tuned!</p>
-    <!-- Button to Open the Modal -->
-    <button id="openModalButton">Sign Up for Updates</button>
-  </div>
+  <!-- Sign Up for Updates Button at the bottom -->
+  <button class="update-button" onclick="openModal()">Sign Up for Updates</button>
 
-  <!-- Modal for Email Signup -->
+  <!-- Sign-Up Modal -->
   <div id="modal" class="modal">
     <div class="modal-content">
-      <span class="close" id="closeModalButton">&times;</span>
-      <!-- Mailchimp Embed Code -->
-      <div id="mc_embed_shell">
-        <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
-        <div id="mc_embed_signup">
-          <form action="https://draema.us14.list-manage.com/subscribe/post?u=42dad7b8656ac4c450935e5c2&amp;id=4354b3a736&amp;f_id=002e42e5f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-            <div id="mc_embed_signup_scroll">
-              <h2>Subscribe</h2>
-              <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-              <div class="mc-field-group">
-                <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
-                <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
-              </div>
-              <div class="mc-field-group">
-                <label for="mce-FNAME">First Name <span class="asterisk">*</span></label>
-                <input type="text" name="FNAME" class="required text" id="mce-FNAME" required value="">
-              </div>
-              <div class="mc-field-group">
-                <label for="mce-LNAME">Last Name </label>
-                <input type="text" name="LNAME" class="text" id="mce-LNAME" value="">
-              </div>
-              <div class="mc-field-group">
-                <label for="mce-PHONE">Phone Number </label>
-                <input type="text" name="PHONE" class="REQ_CSS" id="mce-PHONE" value="">
-              </div>
-              <div id="mce-responses" class="clear foot">
-                <div class="response" id="mce-error-response" style="display: none;"></div>
-                <div class="response" id="mce-success-response" style="display: none;"></div>
-              </div>
-              <!-- Hidden field for bot prevention -->
-              <div aria-hidden="true" style="position: absolute; left: -5000px;">
-                <input type="text" name="b_42dad7b8656ac4c450935e5c2_4354b3a736" tabindex="-1" value="">
-              </div>
-              <div class="optionalParent">
-                <div class="clear foot">
-                  <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
-                  <p style="margin: 0px auto;">
-                    <a href="http://eepurl.com/i9u_a2" title="Mailchimp - email marketing made easy and fun">
-                      <span style="display: inline-block; background-color: transparent; border-radius: 4px;">
-                        <img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;">
-                      </span>
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-        <script type="text/javascript">
-          (function($) {
-            window.fnames = new Array(); 
-            window.ftypes = new Array();
-            fnames[0]='EMAIL'; ftypes[0]='email';
-            fnames[1]='FNAME'; ftypes[1]='text';
-            fnames[2]='LNAME'; ftypes[2]='text';
-            fnames[4]='PHONE'; ftypes[4]='phone';
-            fnames[3]='ADDRESS'; ftypes[3]='address';
-            fnames[5]='BIRTHDAY'; ftypes[5]='birthday';
-            fnames[6]='COMPANY'; ftypes[6]='text';
-          }(jQuery));
-          var $mcj = jQuery.noConflict(true);
-        </script>
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Subscribe for Updates</h2>
+      <div id="mc_embed_signup">
+        <form action="https://draema.us14.list-manage.com/subscribe/post?u=42dad7b8656ac4c450935e5c2&amp;id=4354b3a736&amp;f_id=002e42e5f0" method="post" target="_blank">
+          <input type="email" name="EMAIL" placeholder="Enter your email" required>
+          <input type="submit" value="Subscribe" class="button">
+        </form>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript for Modal Behavior -->
+  <!-- JavaScript for Modal -->
   <script>
-    const modal = document.getElementById("modal");
-    const openModalButton = document.getElementById("openModalButton");
-    const closeModalButton = document.getElementById("closeModalButton");
-    
-    openModalButton.addEventListener("click", function() {
-      modal.style.display = "block";
-    });
-    
-    document.getElementById("closeModalButton").addEventListener("click", function() {
-      modal.style.display = "none";
-    });
-    
-    window.addEventListener("click", function(event) {
+    function openModal() {
+      document.getElementById("modal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+    // Close modal when clicking outside the modal box
+    window.onclick = function(event) {
+      let modal = document.getElementById("modal");
       if (event.target === modal) {
         modal.style.display = "none";
       }
-    });
+    }
   </script>
 </body>
 </html>
